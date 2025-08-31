@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 
+import Script from "next/script";
+
+
 
 
 export const metadata: Metadata = {
@@ -16,10 +19,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="bn">
-      <body
-        className={`antialiased`}
-      >
+      <body>
         {children}
+
+        {/* Google AdSense Script */}
+        <Script
+          id="adsbygoogle-init"
+          async
+          strategy="afterInteractive"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9822891837132664"
+          crossOrigin="anonymous"
+        />
       </body>
     </html>
   );

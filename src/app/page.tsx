@@ -1,4 +1,5 @@
 import Image from "next/image"
+import TopBannerAd from "./components/TopBannerAd"
 
 export default function Page() {
   const jsonLd = {
@@ -84,8 +85,13 @@ export default function Page() {
       <header className="h-40 md:h-24 lg:h-28 flex items-center justify-center mb-8 md:mb-12 lg:mb-16 opacity-0 animate-[fadeInDown_0.8s_ease-out_forwards]">
         <div className="max-w-[1200px] w-full px-4 md:px-6 lg:px-8">
           <div className="bg-white/95 border border-gray-200 rounded-lg p-2 text-center text-sm text-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer transform-gpu">
-            TOP BANNER AD
+            <TopBannerAd></TopBannerAd>
           </div>
+
+
+          
+
+
         </div>
       </header>
 
