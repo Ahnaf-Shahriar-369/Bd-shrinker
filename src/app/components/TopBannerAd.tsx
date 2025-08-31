@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export default function TopBannerAd(): JSX.Element {
+export default function TopBannerAd() {
   useEffect(() => {
     if (typeof window === "undefined" || typeof document === "undefined") return;
 
@@ -42,3 +42,4 @@ export default function TopBannerAd(): JSX.Element {
     ></ins>
   );
 }
+// ...existing
