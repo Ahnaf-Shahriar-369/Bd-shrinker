@@ -4,6 +4,8 @@ import "./globals.css";
 
 import Script from "next/script";
 
+import { Analytics } from "@vercel/analytics/next"
+
 
 
 
@@ -21,6 +23,8 @@ export default function RootLayout({
     <html lang="bn">
       <body>
         {children}
+
+        <Analytics></Analytics>
 
         {/* Google AdSense Script */}
         <Script
