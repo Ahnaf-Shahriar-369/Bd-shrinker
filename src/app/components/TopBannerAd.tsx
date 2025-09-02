@@ -1,45 +1,36 @@
-// ...existing code...
 "use client";
 import { useEffect } from "react";
 
-declare global {
-  interface Window {
-    adsbygoogle?: unknown[];
-  }
-}
-
 export default function TopBannerAd() {
   useEffect(() => {
-    if (typeof window === "undefined" || typeof document === "undefined") return;
+    const container = document.getElementById("adsterra-top");
+    if (container) container.innerHTML = "";
 
-    // Load AdSense script if it's not already present
-    if (!document.getElementById("adsbygoogle-js")) {
-      const script = document.createElement("script");
-      script.id = "adsbygoogle-js";
-      script.async = true;
-      script.src =
-        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9822891837132664";
-      script.crossOrigin = "anonymous";
-      document.head.appendChild(script);
-    }
+    const script1 = document.createElement("script");
+    script1.type = "text/javascript";
+    script1.innerHTML = `
+      atOptions = {
+        'key' : 'd8cba7ef26b26fb852cf6f01edcf353a',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    `;
 
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.error("AdSense error:", err);
+    const script2 = document.createElement("script");
+    script2.type = "text/javascript";
+    script2.src = "//www.highperformanceformat.com/d8cba7ef26b26fb852cf6f01edcf353a/invoke.js";
+
+    if (container) {
+      container.appendChild(script1);
+      container.appendChild(script2);
     }
   }, []);
 
   return (
-    <ins
-      className="adsbygoogle block my-4"
-      style={{ display: "block" }}
-      data-ad-client="ca-pub-9822891837132664"
-      data-ad-slot="3800916032"
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-      aria-hidden="true"
-    ></ins>
+    <div className="flex justify-center">
+      <div id="adsterra-top" className="w-[728px] h-[90px]" />
+    </div>
   );
 }
-// ...existing

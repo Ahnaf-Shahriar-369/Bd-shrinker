@@ -84,16 +84,16 @@ export default function Page() {
       <script key="ld-json" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* TOP AD SLOT with animation */}
-      <header className="h-40 md:h-24 lg:h-28 flex items-center justify-center mb-8 md:mb-12 lg:mb-16 opacity-0 animate-[fadeInDown_0.8s_ease-out_forwards]">
-        <div className="max-w-[1200px] w-full px-4 md:px-6 lg:px-8">
-          <div className="bg-white/95 border border-gray-200 rounded-lg p-2 text-center text-sm text-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer transform-gpu">
-            <TopBannerAd></TopBannerAd>
+      <header className="w-full pt-4 pb-8 md:pb-12 lg:pb-16 opacity-0 animate-[fadeInDown_0.8s_ease-out_forwards]">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8">
+          <div className="bg-white/95 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer transform-gpu overflow-hidden">
+            <TopBannerAd />
           </div>
         </div>
       </header>
 
       {/* Main layout */}
-      <div className="max-w-[1400px] mx-auto flex gap-4 items-start px-4 md:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto flex gap-4 items-start px-4 md:px-6 lg:px-8 pb-32 md:pb-24">
         {/* LEFT MAIN AD (desktop only) */}
         <aside className="hidden lg:block w-40 xl:w-48 flex-shrink-0 mt-20 opacity-0 animate-[fadeInLeft_0.8s_ease-out_0.2s_forwards]">
           <div className="sticky top-20">
@@ -196,17 +196,21 @@ export default function Page() {
       </div>
 
       {/* Mobile bottom ad with bounce animation */}
-      <div className="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[92%] max-w-md opacity-0 animate-[bounceIn_1s_ease-out_0.8s_forwards]">
-        <div className="bg-white/95 border rounded-lg p-3 text-center text-sm text-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
-          MOBILE BANNER AD
+      <div className="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[92%] max-w-md opacity-0 animate-[bounceIn_1s_ease-out_0.8s_forwards] z-50">
+        <div className="bg-white/95 border rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+          <div className="p-2 text-center text-sm text-gray-800">
+            MOBILE BANNER AD
+          </div>
         </div>
       </div>
 
       {/* Bottom banner (desktop/tablet) - fixed at the very bottom of the viewport */}
-      <footer className="hidden md:flex fixed bottom-0 left-0 right-0 justify-center z-50 pointer-events-auto">
-        <div className="w-full max-w-[1200px] px-4 md:px-6 lg:px-8">
-          <div className="flex justify-center pb-2">
-            <BottomBannerAd />
+      <footer className="hidden md:block fixed bottom-0 left-0 right-0 z-50 bg-white/95 border-t border-gray-200 shadow-lg">
+        <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8 py-2">
+          <div className="flex justify-center">
+            <div className="overflow-hidden rounded-lg">
+              <BottomBannerAd />
+            </div>
           </div>
         </div>
       </footer>
@@ -249,4 +253,4 @@ export default function Page() {
       `}</style>
     </div>
   )
-};
+}

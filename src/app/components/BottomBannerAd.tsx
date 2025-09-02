@@ -1,9 +1,11 @@
-// components/AdsterraBanner.tsx
 "use client";
 import { useEffect } from "react";
 
-export default function AdsterraBanner() {
+export default function BottomBannerAd() {
   useEffect(() => {
+    const container = document.getElementById("adsterra-bottom");
+    if (container) container.innerHTML = "";
+
     const script1 = document.createElement("script");
     script1.type = "text/javascript";
     script1.innerHTML = `
@@ -20,17 +22,15 @@ export default function AdsterraBanner() {
     script2.type = "text/javascript";
     script2.src = "//www.highperformanceformat.com/d8cba7ef26b26fb852cf6f01edcf353a/invoke.js";
 
-    const container = document.getElementById("adsterra-slot");
     if (container) {
-      container.innerHTML = "";
       container.appendChild(script1);
       container.appendChild(script2);
     }
   }, []);
 
   return (
-    <div className="flex justify-center my-4">
-      <div id="adsterra-slot" className="w-[728px] h-[90px] border rounded-md shadow-sm" />
+    <div className="flex justify-center">
+      <div id="adsterra-bottom" className="w-[728px] h-[90px]" />
     </div>
   );
 }
