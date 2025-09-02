@@ -1,3 +1,4 @@
+// ...existing code...
 "use client";
 import { useEffect, useState } from "react";
 
@@ -6,81 +7,78 @@ export default function BottomBannerAd() {
   const [isDevelopment, setIsDevelopment] = useState(false);
 
   useEffect(() => {
-    // Check if we're in development environment
-    const isDev = process.env.NODE_ENV === 'development';
-    setIsDevelopment(isDev);
-    
-    if (isDev) {
-      console.log("Skipping ad loading in development mode");
-      setIsLoaded(true); // Mark as loaded to hide loading message
+    if (typeof window === "undefined" || typeof document === "undefined") {
       return;
     }
 
-    // Add a small delay to ensure DOM is ready
-    const timer = setTimeout(() => {
+    const isDev = process.env.NODE_ENV === "development";
+    setIsDevelopment(isDev);
+
+    if (isDev) {
+      // Skip loading real ad scripts during development
+      setIsLoaded(true);
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
       try {
         const container = document.getElementById("adsterra-bottom");
         if (!container) {
-          console.log("Bottom ad container not found");
+          setIsLoaded(true);
           return;
         }
 
-        // Clear any existing content
+        // Clear previous content
         container.innerHTML = "";
 
-        // Create a unique key for bottom ad to avoid conflicts with top ad
-        const script1 = document.createElement("script");
-        script1.type = "text/javascript";
-        script1.textContent = `
-          console.log('Loading bottom Adsterra ad...');
-          (function() {
-            var atOptions = {
-              'key' : 'd8cba7ef26b26fb852cf6f01edcf353a',
-              'format' : 'iframe',
-              'height' : 90,
-              'width' : 728,
-              'params' : {}
-            };
-            window.atOptions_bottom = atOptions;
-          })();
+        // Remove previous scripts if present
+        const oldInline = document.getElementById("adsterra-bottom-inline");
+        const oldScript = document.getElementById("adsterra-bottom-script");
+        if (oldInline) oldInline.remove();
+        if (oldScript) oldScript.remove();
+
+        const scriptInline = document.createElement("script");
+        scriptInline.id = "adsterra-bottom-inline";
+        scriptInline.type = "text/javascript";
+        scriptInline.textContent = `
+          var atOptions = {
+            key : 'd8cba7ef26b26fb852cf6f01edcf353a',
+            format : 'iframe',
+            height : 90,
+            width : 728,
+            params : {}
+          };
         `;
 
-        const script2 = document.createElement("script");
-        script2.type = "text/javascript";
-        script2.async = true;
-        script2.src = "https://www.highperformanceformat.com/d8cba7ef26b26fb852cf6f01edcf353a/invoke.js";
-        
-        script2.onload = () => {
-          console.log("Bottom ad script loaded");
+        const scriptLoader = document.createElement("script");
+        scriptLoader.id = "adsterra-bottom-script";
+        scriptLoader.type = "text/javascript";
+        scriptLoader.async = true;
+        scriptLoader.src = "https://www.highperformanceformat.com/d8cba7ef26b26fb852cf6f01edcf353a/invoke.js";
+
+        scriptLoader.onload = () => {
           setIsLoaded(true);
-          
-          // Check for ad content after delay
-          setTimeout(() => {
-            const adContent = container.querySelector('iframe') || container.querySelector('[class*="ad"]') || container.querySelector('[id*="ad"]');
-            if (adContent) {
-              console.log("Bottom ad content detected");
-            } else {
-              console.log("Bottom ad content not found - possible adblocker or approval issue");
-            }
-          }, 2000);
+        };
+        scriptLoader.onerror = () => {
+          setIsLoaded(true);
         };
 
-        script2.onerror = (error) => {
-          console.log("Bottom ad script failed to load (expected with ad blockers):", error);
-          setIsLoaded(true); // Mark as loaded even if failed
-        };
-
-        // Append scripts
-        document.head.appendChild(script1);
-        document.head.appendChild(script2);
-
-      } catch (error) {
-        console.log("Error loading bottom ad:", error);
-        setIsLoaded(true); // Mark as loaded even if error
+        container.appendChild(scriptInline);
+        container.appendChild(scriptLoader);
+      } catch (err) {
+        setIsLoaded(true);
       }
-    }, 500); // 500ms delay
+    }, 400);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      try {
+        const inline = document.getElementById("adsterra-bottom-inline");
+        const loader = document.getElementById("adsterra-bottom-script");
+        if (inline) inline.remove();
+        if (loader) loader.remove();
+      } catch {}
+    };
   }, []);
 
   return (
@@ -93,8 +91,8 @@ export default function BottomBannerAd() {
             </div>
           )}
           {isDevelopment && isLoaded && (
-            <div className="text-gray-500 text-sm bg-yellow-100 px-4 py-2 rounded border border-yellow-300">
-              Ad placeholder (ads disabled in development)
+            <div className="text-gray-700 text-sm bg-yellow-50 px-4 py-2 rounded border border-yellow-200">
+              Ad placeholder (development mode)
             </div>
           )}
         </div>
@@ -102,3 +100,4 @@ export default function BottomBannerAd() {
     </div>
   );
 }
+// ...existing code...
