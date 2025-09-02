@@ -7,9 +7,10 @@ export default function BottomBannerAd() {
 
   useEffect(() => {
     // Check if we're in development environment
-    setIsDevelopment(process.env.NODE_ENV === 'development');
+    const isDev = process.env.NODE_ENV === 'development';
+    setIsDevelopment(isDev);
     
-    if (process.env.NODE_ENV === 'development') {
+    if (isDev) {
       console.log("Skipping ad loading in development mode");
       setIsLoaded(true); // Mark as loaded to hide loading message
       return;
@@ -17,20 +18,20 @@ export default function BottomBannerAd() {
 
     // Add a small delay to ensure DOM is ready
     const timer = setTimeout(() => {
-      const container = document.getElementById("adsterra-bottom");
-      if (!container) {
-        console.log("Bottom ad container not found");
-        return;
-      }
-
-      // Clear any existing content
-      container.innerHTML = "";
-
       try {
+        const container = document.getElementById("adsterra-bottom");
+        if (!container) {
+          console.log("Bottom ad container not found");
+          return;
+        }
+
+        // Clear any existing content
+        container.innerHTML = "";
+
         // Create a unique key for bottom ad to avoid conflicts with top ad
         const script1 = document.createElement("script");
         script1.type = "text/javascript";
-        script1.innerHTML = `
+        script1.textContent = `
           console.log('Loading bottom Adsterra ad...');
           (function() {
             var atOptions = {
@@ -47,7 +48,7 @@ export default function BottomBannerAd() {
         const script2 = document.createElement("script");
         script2.type = "text/javascript";
         script2.async = true;
-        script2.src = "//www.highperformanceformat.com/d8cba7ef26b26fb852cf6f01edcf353a/invoke.js";
+        script2.src = "https://www.highperformanceformat.com/d8cba7ef26b26fb852cf6f01edcf353a/invoke.js";
         
         script2.onload = () => {
           console.log("Bottom ad script loaded");
