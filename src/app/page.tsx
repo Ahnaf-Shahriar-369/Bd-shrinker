@@ -93,7 +93,7 @@ export default function Page() {
       </header>
 
       {/* Main layout */}
-      <div className="max-w-[1400px] mx-auto flex gap-4 items-start px-4 md:px-6 lg:px-8 pb-32 md:pb-24">
+      <div className="max-w-[1400px] mx-auto flex gap-4 items-start px-4 md:px-6 lg:px-8 pb-8">{/* removed bottom padding since footer is not fixed */}
         {/* LEFT MAIN AD (desktop only) */}
         <aside className="hidden lg:block w-40 xl:w-48 flex-shrink-0 mt-20 opacity-0 animate-[fadeInLeft_0.8s_ease-out_0.2s_forwards]">
           <div className="sticky top-20">
@@ -204,13 +204,11 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Bottom banner (desktop/tablet) - fixed at the very bottom of the viewport */}
-      <footer className="hidden md:block fixed bottom-0 left-0 right-0 z-50 bg-white/95 border-t border-gray-200 shadow-lg">
-        <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8 py-2">
-          <div className="flex justify-center">
-            <div className="overflow-hidden rounded-lg">
-              <BottomBannerAd />
-            </div>
+      {/* Bottom banner (desktop/tablet) - matches top banner styling */}
+      <footer className="hidden md:block w-full pt-8 pb-4 opacity-0 animate-[fadeInUp_0.8s_ease-out_1.2s_forwards]">
+        <div className="max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8">
+          <div className="bg-white/95 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer transform-gpu overflow-hidden">
+            <BottomBannerAd />
           </div>
         </div>
       </footer>
