@@ -1,6 +1,7 @@
 // ...existing code...
 import Image from "next/image";
 import TopBannerAd from "./components/TopBannerAd";
+import MiddleBannerAd from "./components/MiddleBannerAd";
 // BottomBannerAd removed per request
 
 export default function Page() {
@@ -144,9 +145,17 @@ export default function Page() {
               <div key={article.id} className="opacity-0 animate-[fadeIn_1s_ease-out_forwards]" style={{ animationDelay: `${0.4 + index * 0.1}s` }}>
                 {/* Middle ad before article */}
                 <section className="mx-auto w-full mb-6">
-                  <div className="bg-white/90 border border-gray-200 rounded-lg p-3 text-center shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.01] cursor-pointer transform-gpu">
-                    <div className="text-gray-600 text-sm font-medium">Middle ad {index + 1}</div>
-                  </div>
+                  {index === 0 ? (
+                    // First middle ad - real Adsterra ad
+                    <div className="bg-white/95 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.01] cursor-pointer transform-gpu overflow-hidden">
+                      <MiddleBannerAd />
+                    </div>
+                  ) : (
+                    // Other middle ads - placeholder
+                    <div className="bg-white/90 border border-gray-200 rounded-lg p-3 text-center shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.01] cursor-pointer transform-gpu">
+                      <div className="text-gray-600 text-sm font-medium">Middle ad {index + 1}</div>
+                    </div>
+                  )}
                 </section>
 
                 {/* Article with side ads */}
